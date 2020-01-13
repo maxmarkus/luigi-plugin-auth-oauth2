@@ -1,39 +1,36 @@
-# Luigi Client
+# OAuth2 - Authorization Plugin for Luigi Core
 
 ## Overview
 
-This project contains a library that allows your application to use all features of the [Luigi framework](../core).
+This project contains a library that allows your application to extend the [Luigi framework](https://github.com/SAP/luigi/tree/master/core) with a OAuth2 authorization provider.
 
 ## Installation
 
 Install the client in your project using npm:
 ```bash
-npm install @kyma-project/luigi-client
+npm install @luigi-project/plugin-auth-oauth2
 ```
 
 Import the client in places where you want to use it, depending on the environment of your choice:
 ```javascript
-var LuigiClient = require('@kyma-project/luigi-client');
+var oAuth2ImplicitGrant = require('@luigi-project/plugin-auth-oauth2');
 ```
 or
 ```javascript
-import LuigiClient from '@kyma-project/luigi-client';
+import oAuth2ImplicitGrant from '@luigi-project/plugin-auth-oauth2';
 ```
-or, if you are not using any bundler, Luigi is also available as a global object:
+
+Then integrating it as authorization provider:
 ```javascript
-window.LuigiClient
+Luigi.setConfig({
+  auth: {
+    use: 'myProviderConfig',
+    myProviderConfig: {
+      customIdpProvider: oAuth2ImplicitGrant,
+      // ... configuration data comes here
+    }
+  }
+})
 ```
-You can see the Luigi Client in action by running the [Angular example application](/core/examples/luigi-sample-angular).
 
-## Usage
-
-This section contains additional instructions and guidelines you can use to work with Luigi Client.
-
-
-### Generate documentation
-Validate and generate documentation using npm:
-
-```bash
-npm install
-npm run docu
-```
+OAuth2 configuration details can be found in the main documentation: [authorization-configuration.md](https://github.com/SAP/luigi/blob/master/docs/authorization-configuration.md#oauth2-implicit-grant-configuration)
